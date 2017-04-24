@@ -9,7 +9,7 @@
             .when('/', {
                 controller: 'HomeController',
                 controllerAs: 'home',
-                template: '<h1>This is an inline template</h1>'//'/app/templates/home.html'
+                templateUrl: '/app/templates/home.html'
             });
             /*
             .when('/schools', {
