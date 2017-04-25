@@ -1,4 +1,5 @@
  /*global angular*/
+ /*global console*/
 (function () {
     "use strict";
     var app = angular.module('app', ['ngRoute']);
@@ -15,12 +16,19 @@
             .when('/schools', {
                 controller: 'AllSchoolsController',
                 controllerAs: 'schools',
-                templateUrl: '/app/templates/allSchools.html'
+                templateUrl: '/app/templates/allSchools.html',
+                caseInsensitiveMatch: true
             })
             .when('/classrooms', {
                 controller: 'AllClassroomsController',
                 controllerAs: 'classrooms',
-                templateUrl: '/app/templates/allClassrooms.html'
+                templateUrl: '/app/templates/allClassrooms.html',
+                redirectTo: function (params, currPath, currSearch) {
+                    console.log(params);
+                    console.log(currPath);
+                    console.log(currSearch);
+                    return '/';
+                }
             })
             .when('/activities', {
                 controller: 'AllActivitiesController',
