@@ -4,8 +4,9 @@
     "use strict";
     var app = angular.module('app', ['ngRoute']);
 
-    app.config(['$logProvider', '$routeProvider', function ($logProvider, $routeProvider) {
-
+       app.config(['$logProvider', '$routeProvider', '$locationProvider', function ($logProvider, $routeProvider, $locationProvider) {
+        $locationProvider.hashPrefix('!');
+        //$locationProvider.html5Mode(true); 
         $logProvider.debugEnabled(true);
         $routeProvider
             .when('/', {
