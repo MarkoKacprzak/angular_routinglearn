@@ -1,5 +1,6 @@
-(function() {
-
+ /*global angular*/
+(function () {
+    "use strict";
     var app = angular.module('app', ['ngRoute']);
 
     app.config(['$logProvider', '$routeProvider', function ($logProvider, $routeProvider) {
@@ -10,8 +11,7 @@
                 controller: 'HomeController',
                 controllerAs: 'home',
                 templateUrl: '/app/templates/home.html'
-            });
-            /*
+            })
             .when('/schools', {
                 controller: 'AllSchoolsController',
                 controllerAs: 'schools',
@@ -25,13 +25,14 @@
             .when('/activities', {
                 controller: 'AllActivitiesController',
                 controllerAs: 'activities',
-                templateUrl: '/app/templates/allActivities.html',
+                templateUrl: '/app/templates/allActivities.html'/*,
                 resolve: {
                     activities: function (dataService) {
                         return dataService.getAllActivities();
                     }
-                }
-            })
+                }*/
+            });
+            /*
             .when('/classrooms/:id', {
                 templateUrl: '/app/templates/classroom.html',
                 controller: 'ClassroomController',
@@ -45,5 +46,5 @@
             .otherwise('/');
             */
     }]);
- 
+
 }());

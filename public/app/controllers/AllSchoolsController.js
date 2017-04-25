@@ -1,22 +1,18 @@
+ /*global angular*/
 (function () {
-
-    angular.module('app')
-        .controller('AllSchoolsController', ['dataService', 'notifier', AllSchoolsController]);
-
+    "use strict";
     function AllSchoolsController(dataService, notifier) {
-
         var vm = this;
-
-        dataService.getAllSchools()
-            .then(function(schools) {
-                vm.allSchools = schools;
-            })
-            .catch(showError);
-
+        vm.allSchools = {};
         function showError(message) {
             notifier.error(message);
         }
-
+        dataService.getAllSchools()
+            .then(function (schools) {
+                vm.allSchools = schools;
+            })
+            .catch(showError);
     }
-
+    angular.module('app')
+        .controller('AllSchoolsController', ['dataService', 'notifier', AllSchoolsController]);
 }());
