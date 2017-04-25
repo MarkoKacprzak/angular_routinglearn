@@ -6,11 +6,12 @@
 
        app.config(['$logProvider', '$routeProvider', '$locationProvider', function ($logProvider, $routeProvider, $locationProvider) {
         //$locationProvider.hashPrefix('!');
+        /*
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: true,
             rewriteLinks: true
-        });
+        });*/
         $logProvider.debugEnabled(true);
         $routeProvider
             .when('/', {
