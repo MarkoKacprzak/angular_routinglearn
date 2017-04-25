@@ -5,8 +5,12 @@
     var app = angular.module('app', ['ngRoute']);
 
        app.config(['$logProvider', '$routeProvider', '$locationProvider', function ($logProvider, $routeProvider, $locationProvider) {
-        $locationProvider.hashPrefix('!');
-        //$locationProvider.html5Mode(true); 
+        //$locationProvider.hashPrefix('!');
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: true,
+            rewriteLinks: true
+        });
         $logProvider.debugEnabled(true);
         $routeProvider
             .when('/', {
