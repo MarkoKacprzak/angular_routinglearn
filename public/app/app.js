@@ -22,25 +22,18 @@
             .when('/classrooms', {
                 controller: 'AllClassroomsController',
                 controllerAs: 'classrooms',
-                templateUrl: '/app/templates/allClassrooms.html',
-                redirectTo: function (params, currPath, currSearch) {
-                    console.log(params);
-                    console.log(currPath);
-                    console.log(currSearch);
-                    return '/';
-                }
+                templateUrl: '/app/templates/allClassrooms.html'
             })
             .when('/activities', {
                 controller: 'AllActivitiesController',
                 controllerAs: 'activities',
-                templateUrl: '/app/templates/allActivities.html'/*,
+                templateUrl: '/app/templates/allActivities.html',
                 resolve: {
                     activities: function (dataService) {
                         return dataService.getAllActivities();
                     }
-                }*/
-            });
-            /*
+                }
+            })
             .when('/classrooms/:id', {
                 templateUrl: '/app/templates/classroom.html',
                 controller: 'ClassroomController',
@@ -52,7 +45,28 @@
                 controllerAs: 'classroom'
             })
             .otherwise('/');
-            */
     }]);
+    app.run(['$rootScope', '$log', function($rootScope, $log) {
+        $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
+            $log.debug('successfully changed routes');
+
+            $log.debug(event);
+            $log.debug(current);
+            $log.debug(previous);
+
+        });
+
+        $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
+
+            $log.debug('error changing routes');
+
+            $log.debug(event);
+            $log.debug(current);
+            $log.debug(previous);
+            $log.debug(rejection);
+
+        });
+
+    }]); 
 }());

@@ -1,7 +1,7 @@
  /*global angular*/
 (function () {
     "use strict";
-    function HomeController(dataService, notifier) {
+    function HomeController(dataService, notifier, $route, $log) {
         var vm = this;
         vm.message = 'Welcome to School Buddy!';
         vm.allSchools = {};
@@ -10,6 +10,11 @@
         vm.activityCount = 0;
         vm.allClassrooms = {};
         vm.allActivities = {};
+        vm.refresh = function () {
+            $log.debug($route.current);
+            $log.debug($route.routes);
+            $route.reload();
+        };
         function showError(message) {
             notifier.error(message);
         }
@@ -33,5 +38,5 @@
             .catch(showError);
     }
     angular.module('app')
-        .controller('HomeController', ['dataService', 'notifier', HomeController]);
+        .controller('HomeController', ['dataService', 'notifier', '$route', '$log', HomeController]);
 }());
