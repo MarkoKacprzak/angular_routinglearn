@@ -1,5 +1,5 @@
- /*global angular*/
- /*global console*/
+/*global angular*/
+/*global console*/
 (function () {
     "use strict";
     var app = angular.module('app', ['ui.router']);
@@ -50,26 +50,37 @@
                     myFoo: 'bar'
                 }
             })
-            .state('classroom_summary', {
-                url: '/classrooms',
-                templateUrl: '/app/templates/classroom.html',
+            .state('classroom_parent', {
+                abstract: true,
+                url: '/classrooms/:id',
+                templateUrl: '/app/templates/classroom_parent.html',
                 controller: 'ClassroomController',
                 controllerAs: 'classroom',
                 params: {
-                    id: { value: 1}
+                    classroomMessage: {value: 'Learning is fun!'}
+                },
+                resolve: {
+                    classroom: function ($stateParams, dataService) {
+                        return dataService.getClassroom($stateParams.id);
+                    }
                 }
             })
-            .state('classroom_detail', {
-                url: '/classrooms/{id:[0-9]}/detail/{month}',
-                templateUrl: '/app/templates/classroomDetail.html',
-                controller: 'ClassroomController',
-                controllerAs: 'classroom',
+            .state('classroom_parent.classroom_summary', {
+                url: '/summary',
+                templateUrl: '/app/templates/classroom.html',
+                controller: 'ClassroomSummaryController',
+                controllerAs: 'classroomSummary',
                 params: {
-                    classroomMessage: { value: 'Learning is fun!' }
+                    id: {value: 1}
                 }
+            })
+            .state('classroom_parent.classroom_detail', {
+                url: '/detail/{month}',
+                templateUrl: '/app/templates/classroomDetail.html'
+
             });
     }]);
-    app.run(['$rootScope', '$log', function($rootScope, $log) {
+    app.run(['$rootScope', '$log', function ($rootScope, $log) {
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
