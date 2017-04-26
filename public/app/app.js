@@ -51,10 +51,13 @@
                 }
             })
             .state('classroom_summary', {
-                url: '/classrooms/:id',
+                url: '/classrooms',
                 templateUrl: '/app/templates/classroom.html',
                 controller: 'ClassroomController',
-                controllerAs: 'classroom'
+                controllerAs: 'classroom',
+                params: {
+                    id: { value: 1}
+                }
             })
             .state('classroom_detail', {
                 url: '/classrooms/{id:[0-9]}/detail/{month}',
