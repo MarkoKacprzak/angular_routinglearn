@@ -17,7 +17,7 @@
         $log.debug($state.current.foo);
 
         vm.search = function () {
-            $state.go('classroom_detail', {id: vm.selectedClassroom.id, month: vm.selectedMonth});
+            $state.go('classroom_parent.classroom_detail', {id: vm.selectedClassroom.id, month: vm.selectedMonth});
         };
 
         function showError(message) {

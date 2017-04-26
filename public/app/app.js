@@ -67,17 +67,27 @@
             })
             .state('classroom_parent.classroom_summary', {
                 url: '/summary',
-                templateUrl: '/app/templates/classroom.html',
-                controller: 'ClassroomSummaryController',
-                controllerAs: 'classroomSummary',
-                params: {
-                    id: {value: 1}
+                views: {
+                    'classInfo':{
+                        templateUrl: '/app/templates/classroom.html',
+                        controller: 'ClassroomSummaryController',
+                        controllerAs: 'classroomSummary',
+                    },
+                    'classMessage':{
+                        templateUrl: '/app/templates/classroom_message.html',
+                        controller: 'ClassroomMessageController',
+                        controllerAs: 'classroomMessage',
+                    }
                 }
+            
             })
             .state('classroom_parent.classroom_detail', {
                 url: '/detail/{month}',
-                templateUrl: '/app/templates/classroomDetail.html'
-
+                views: {
+                    'classInfo':{
+                        templateUrl: '/app/templates/classroomDetail.html'
+                    }
+                }
             });
     }]);
     app.run(['$rootScope', '$log', function ($rootScope, $log) {
