@@ -2,35 +2,38 @@
  /*global console*/
 (function () {
     "use strict";
-    var app = angular.module('app', ['ngRoute']);
+    var app = angular.module('app', ['ui.router']);
 
-       app.config(['$logProvider', '$routeProvider', '$locationProvider', function ($logProvider, $routeProvider, $locationProvider) {
-        //$locationProvider.hashPrefix('!');
-        /*
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: true,
-            rewriteLinks: true
-        });*/
+    app.config(['$logProvider', '$stateProvider', '$urlRouterProvider', function ($logProvider, $stateProvider, $urlRouterProvider) {
         $logProvider.debugEnabled(true);
-        $routeProvider
-            .when('/', {
+        $urlRouterProvider.otherwise('/');
+        $stateProvider
+            .state('home', {
+                url: '/',
+                templateUrl: '/app/templates/home.html',
                 controller: 'HomeController',
-                controllerAs: 'home',
-                templateUrl: '/app/templates/home.html'
+                controllerAs: 'home'
             })
-            .when('/schools', {
+            .state('schools', {
+                url: '/schools',
                 controller: 'AllSchoolsController',
                 controllerAs: 'schools',
-                templateUrl: '/app/templates/allSchools.html',
-                caseInsensitiveMatch: true
+                templateUrl: '/app/templates/allSchools.html'
             })
-            .when('/classrooms', {
+            .state('classrooms', {
+                url: '/classrooms',
                 controller: 'AllClassroomsController',
                 controllerAs: 'classrooms',
-                templateUrl: '/app/templates/allClassrooms.html'
+                templateUrl: '/app/templates/allClassrooms.html',
+                onEnter: function ($log) {
+                    $log.debug('Entering the classrooms state.');
+                },
+                onExit: function ($log) {
+                    $log.debug('Exiting the classrooms state.');
+                }
             })
-            .when('/activities', {
+            .state('activities', {
+                url: '/activities',
                 controller: 'AllActivitiesController',
                 controllerAs: 'activities',
                 templateUrl: '/app/templates/allActivities.html',
@@ -38,41 +41,60 @@
                     activities: function (dataService) {
                         return dataService.getAllActivities();
                     }
+                },
+                data: {
+                    name: 'My Activity',
+                    desc: 'Fun!'
+                },
+                foo: {
+                    myFoo: 'bar'
                 }
             })
-            .when('/classrooms/:id', {
+            .state('classroom_summary', {
+                url: '/classrooms/:id',
                 templateUrl: '/app/templates/classroom.html',
                 controller: 'ClassroomController',
                 controllerAs: 'classroom'
             })
-            .when('/classrooms/:id/detail/:month?', {
+            .state('classroom_detail', {
+                url: '/classrooms/{id:[0-9]}/detail/{month}',
                 templateUrl: '/app/templates/classroomDetail.html',
                 controller: 'ClassroomController',
-                controllerAs: 'classroom'
-            })
-            .otherwise('/');
+                controllerAs: 'classroom',
+                params: {
+                    classroomMessage: { value: 'Learning is fun!' }
+                }
+            });
     }]);
     app.run(['$rootScope', '$log', function($rootScope, $log) {
-        $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
-            $log.debug('successfully changed routes');
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
-            $log.debug(event);
-            $log.debug(current);
-            $log.debug(previous);
+            $log.debug('successfully changed states');
+
+            $log.debug('event', event);
+            $log.debug('toState', toState);
+            $log.debug('toParams', toParams);
+            $log.debug('fromState', fromState);
+            $log.debug('fromParams', fromParams);
+        });
+
+        $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
+
+            $log.error('The requested state was not found: ', unfoundState);
 
         });
 
-        $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
+        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
 
-            $log.debug('error changing routes');
+            $log.error('An error occurred while changing states: ', error);
 
-            $log.debug(event);
-            $log.debug(current);
-            $log.debug(previous);
-            $log.debug(rejection);
-
+            $log.debug('event', event);
+            $log.debug('toState', toState);
+            $log.debug('toParams', toParams);
+            $log.debug('fromState', fromState);
+            $log.debug('fromParams', fromParams);
         });
 
-    }]); 
+    }]);
 }());

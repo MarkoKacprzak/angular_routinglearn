@@ -20,6 +20,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#/">School Buddy</a>
+            <a class="navbar-brand" ui-sref="home">ui-sref</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -32,7 +33,7 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<div ng-view></div>
+<div ui-view></div>
 
 
 <!-- Libraries -->
@@ -41,7 +42,7 @@
 
 <!-- Angular -->
 <script src="app/bower_components/angular/angular.min.js"></script>
-<script src="app/bower_components/angular-route/angular-route.min.js"></script>
+<script src="app/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
 <!-- Application code -->
 <script src="app/app.js"></script>
