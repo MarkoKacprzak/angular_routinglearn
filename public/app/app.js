@@ -9,19 +9,19 @@
         $urlRouterProvider.otherwise('/');
         $stateProvider
             .state('home', {
-                url: '/',
+              //  url: '/',
                 templateUrl: '/app/templates/home.html',
                 controller: 'HomeController',
                 controllerAs: 'home'
             })
             .state('schools', {
-                url: '/schools',
+               // url: '/schools',
                 controller: 'AllSchoolsController',
                 controllerAs: 'schools',
                 templateUrl: '/app/templates/allSchools.html'
             })
             .state('classrooms', {
-                url: '/classrooms',
+               // url: '/classrooms',
                 controller: 'AllClassroomsController',
                 controllerAs: 'classrooms',
                 templateUrl: '/app/templates/allClassrooms.html',
@@ -33,7 +33,7 @@
                 }
             })
             .state('activities', {
-                url: '/activities',
+               // url: '/activities',
                 controller: 'AllActivitiesController',
                 controllerAs: 'activities',
                 templateUrl: '/app/templates/allActivities.html',
